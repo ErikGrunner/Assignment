@@ -101,7 +101,7 @@ public class Gui extends JFrame  implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if( arg0.getSource() == button1) {
-			JOptionPane.showMessageDialog(null, "Checking Symptoms");
+			//JOptionPane.showMessageDialog(null, "Checking Symptoms");
 			test.ReadData();
 			Numerator=0;
 			if(checkBox1.isSelected())
@@ -130,6 +130,10 @@ public class Gui extends JFrame  implements ActionListener
 				System.out.println("Cool"+test.getTempatureCoolNumerator());
 			}
 			System.out.println("Denominator"+test.getDenominator());
+			if(Numerator/test.getDenominator()==1)
+			{
+				JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/test.getDenominator())+"<html><a href=\"http://google.com/\">a link</a></html>");
+			}
 			JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/test.getDenominator()));
 		}
 

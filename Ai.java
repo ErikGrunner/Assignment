@@ -1,17 +1,20 @@
 package Assignment;
 //https://www.journaldev.com/709/java-read-file-line-by-line#java-read-file-line-by-line-using-bufferedreader
 
-import java.io.BufferedReader;
+import java.io.BufferedReader ;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Ai {
+public class Ai implements Requirements{
 	private float tempatureNormalNumerator=0;
 	private float tempatureCoolNumerator=0;	
 	private float soreThroatNumerator=0;
 	private float achesNumerator=0;
 	private float Denominator=0;
 	private float tempatureHotNumerator=0;
+	int trace =0;
+	boolean alreadyExecuted = false;
+	DataOptions d[] = null;
 	
 	public float getTempatureHotNumerator() {
 		return tempatureHotNumerator;
@@ -55,7 +58,7 @@ public class Ai {
 	}
 	public void ReadData()
 	{
-		BufferedReader reader;
+		BufferedReader reader;//Found a code example of buffer reader online
 		try {
 			System.out.println("test1");
 			reader = new BufferedReader(new FileReader(
@@ -63,7 +66,25 @@ public class Ai {
 			String line = reader.readLine();
 			while (line != null) {
 				//System.out.println(line);
+				
 				sortData(line);
+				line = reader.readLine();
+			}
+			reader.close();
+		} catch (IOException e) {
+			System.out.println("Failed to read");
+			e.printStackTrace();
+		}
+		
+		try {
+			System.out.println("test1");
+			reader = new BufferedReader(new FileReader(
+					"/Users/Erik/Desktop/Tonsilitus.txt"));
+			String line = reader.readLine();
+			while (line != null) {
+				//System.out.println(line);
+				//line = line.replaceAll("[^A-Za-z]+", "").toLowerCase();
+				countData(line);
 				line = reader.readLine();
 			}
 			reader.close();
@@ -80,6 +101,27 @@ public class Ai {
 
 	}
 	public void sortData(String line)
+	{
+		String[] arrx = line.split(" ");
+	
+		if(!alreadyExecuted) 
+		{
+			d = new DataOptions[arrx.length+1];
+			for(int i=0; i<arrx.length;i++) 
+			{
+				d[i] = new DataOptions();
+			}
+			alreadyExecuted = true;
+		}
+
+		for(int i=0; i<arrx.length;i++) 
+		{
+			arrx[i] = arrx[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
+			d[i].countOptions(arrx[i]);
+		     System.out.println("d"+i+d[i].toString());
+		}
+	}
+	public void countData(String line)
 	{
 		String[] arr = line.split(" ");    
 
