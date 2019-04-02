@@ -1,16 +1,17 @@
 package Assignment;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.ArrayList;
 
 public class DataOptions {
-	private String[] array;
-	Object[] obj = new Object[] {};
-	ArrayList<Object> newObj = new ArrayList<Object>(Arrays.asList(obj));
-	
+	/*Object[] obj = new Object[] {};
+	ArrayList<Object> newObj = new ArrayList<Object>(Arrays.asList(obj));*/
+	ArrayList newObj = new ArrayList();;
 	@SuppressWarnings({ "unused", "unlikely-arg-type" })
 	public void countOptions(String input)
 	{
+
 		if(newObj.contains(input))//Arrays.asList(newObj).contains(input))
 		{
 			//System.out.println("beep");
@@ -18,7 +19,8 @@ public class DataOptions {
 		else
 		{
 			newObj.add(input);
-			Object[] newObj = appendValue(obj, input);
+			//Object[] newObj = appendValue(obj, input);
+			Collections.sort(newObj, Collections.reverseOrder());
 		}
 	}
 	private Object[] appendValue(Object[] obj, Object newObj) 
@@ -29,9 +31,26 @@ public class DataOptions {
 
 	  }
 
+	public Object[] getObj() {
+		return obj;
+	}
+	public void setObj(Object[] obj) {
+		this.obj = obj;
+	}
+
+	public String getNewObj(int x) {
+		String y = (String) newObj.get(x);
+		return y;
+	}
+	public void setNewObj(ArrayList<Object> newObj) {
+		this.newObj = newObj;
+	}
+	public ArrayList<Object> getNewObj() {
+		return newObj;
+	}
 	@Override
 	public String toString() {
-		return "DataOptions [ array=" + Arrays.toString(array) + ", obj=" + Arrays.toString(obj)
+		return "DataOptions [" + "obj=" /*+ Arrays.toString(obj)*/
 				+ ", newObj=" + newObj + "]";
 	}
 }

@@ -4,14 +4,17 @@ package Assignment;
 import java.io.BufferedReader ;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Ai implements Requirements{
+	private float tempatureHotNumerator=0;
 	private float tempatureNormalNumerator=0;
 	private float tempatureCoolNumerator=0;	
 	private float soreThroatNumerator=0;
 	private float achesNumerator=0;
 	private float Denominator=0;
-	private float tempatureHotNumerator=0;
+	private float results[][] = {};
+	
 	int trace =0;
 	boolean alreadyExecuted = false;
 	DataOptions d[] = null;
@@ -60,7 +63,6 @@ public class Ai implements Requirements{
 	{
 		BufferedReader reader;//Found a code example of buffer reader online
 		try {
-			System.out.println("test1");
 			reader = new BufferedReader(new FileReader(
 					"/Users/Erik/Desktop/Tonsilitus.txt"));
 			String line = reader.readLine();
@@ -77,7 +79,6 @@ public class Ai implements Requirements{
 		}
 		
 		try {
-			System.out.println("test1");
 			reader = new BufferedReader(new FileReader(
 					"/Users/Erik/Desktop/Tonsilitus.txt"));
 			String line = reader.readLine();
@@ -104,7 +105,7 @@ public class Ai implements Requirements{
 	{
 		String[] arrx = line.split(" ");
 	
-		if(!alreadyExecuted) 
+		if(!alreadyExecuted) //creates the objects that hold possible answers
 		{
 			d = new DataOptions[arrx.length+1];
 			for(int i=0; i<arrx.length;i++) 
@@ -113,26 +114,46 @@ public class Ai implements Requirements{
 			}
 			alreadyExecuted = true;
 		}
-
-		for(int i=0; i<arrx.length;i++) 
+		for(int i=0; i<arrx.length;i++) //fills the objects with the possible answers
 		{
 			arrx[i] = arrx[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
 			d[i].countOptions(arrx[i]);
 		     System.out.println("d"+i+d[i].toString());
 		}
+		System.out.println(d[2].getNewObj(0));
+
+		
+
 	}
 	public void countData(String line)
 	{
-		String[] arr = line.split(" ");    
-
+		    
+		String[] arr = line.split(" ");
 		/*for(int i=0; i<arr.length;i++) {
 		     System.out.println(arr[i]);
 		}*/
 		Denominator++;
-		if(arr[3].toLowerCase().contentEquals("yes"))//if the patient has Tonsillitis
+		if(arr[3].toLowerCase().contentEquals("yes"/*d[3].getNewObj(j)*/))//if the patient has Tonsillitis
 		{
-			System.out.println("it works erik");
-			if(arr[0].contentEquals("hot"))//check temperature symptom
+			removeTheElement(arr, 3);//this is so that results are not generated for tonsilitus
+			for(int i =0;i<arr.length;i++)
+			{
+				for(int j =0; j<(d[i].getNewObj()).size();j++)
+				{
+					if(arr[i].contentEquals(d[i].getNewObj(j)));
+					{
+						/*if(results[i][j] == null)
+						{
+							results[i][j] =0;
+						}*/
+	
+						//results[i][j]++;
+					}
+				}
+				
+			}
+			//System.out.println("This should say hot"+(StringBuffer) d[0].getObj()[0]);
+			if(arr[0].contentEquals(d[0].getNewObj(0)))//check temperature symptom
 			{
 				tempatureHotNumerator++;
 				//System.out.println("Its Hot");
@@ -159,6 +180,41 @@ public class Ai implements Requirements{
 			}	
 
 		}
-
 	}
+	public static String[] removeTheElement(String[] arr, //found online
+			int index) 
+	{ 
+
+		// If the array is empty 
+		// or the index is not in array range 
+		// return the original array 
+		if (arr == null
+				|| index < 0
+				|| index >= arr.length) { 
+
+			return arr; 
+		} 
+
+		// Create another array of size one less 
+		String[] anotherArray = new String[arr.length - 1]; 
+
+		// Copy the elements except the index 
+		// from original array to the other array 
+		for (int i = 0, k = 0; i < arr.length; i++) { 
+
+			// if the index is 
+			// the removal element index 
+			if (i == index) { 
+				continue; 
+			} 
+
+			// if the index is not 
+			// the removal element index 
+			anotherArray[k++] = arr[i]; 
+		} 
+
+		// return the resultant array 
+		return anotherArray; 
+	} 
 }
+
