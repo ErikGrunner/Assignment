@@ -13,7 +13,7 @@ public class Ai implements Requirements{
 	private float soreThroatNumerator=0;
 	private float achesNumerator=0;
 	private float Denominator=0;
-	private float results[][] = {};
+	private int[][] results = new int[5][5];
 	
 	int trace =0;
 	boolean alreadyExecuted = false;
@@ -147,7 +147,7 @@ public class Ai implements Requirements{
 							results[i][j] =0;
 						}*/
 	
-						//results[i][j]++;
+						results[i][j]++;
 					}
 				}
 				
