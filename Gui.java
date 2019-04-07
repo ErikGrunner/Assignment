@@ -25,23 +25,16 @@ public class Gui extends JFrame  implements ActionListener
 
 
 	private float Numerator = 0;
-	private JLabel label1;
-	private JLabel label2;
 	private JButton button1;
-	private JButton button2;
-	private JTextField box1;
-	private JCheckBox checkBox1;
-	private JCheckBox checkBox2;
-	private JRadioButton rButton1;
-	private JRadioButton rButton2;
-	private JRadioButton rButton3;
+	private int z =0;//used for the radio buttons
 
 	Ai data = new Ai();
 
 	//create all required objects for the gui
 	JLabel[] l = new JLabel[data.getTitles().size()];
-	JRadioButton[] r = new JRadioButton[data.getTitles().size()];
+	JRadioButton[] r = new JRadioButton[data.totalAnswers()];
 	{
+		z =0;
 	for(int i=0; i<data.getTitles().size()-1;i++) 
 	{
 		l[i] = new JLabel((String) data.getTitles().get(i));
@@ -53,14 +46,17 @@ public class Gui extends JFrame  implements ActionListener
 		for(int j=0; j<data.getD(i).getNewObj().size();j++) 
 		{
 
-			r[j] = new JRadioButton((String) data.getD(i).getNewObj(j));
+			r[z] = new JRadioButton((String) data.getD(i).getNewObj(j));
 
-			group.add(r[j]);
-			this.add(r[j]); 
-			//r[j].addActionListener(this);
+			group.add(r[z]);
+			this.add(r[z]); 
+			r[z].addActionListener(this);
 			//this.add(new JRadioButton((String) data.getD(i).getNewObj(j)));
+			System.out.println("ZZZZZ"+z);
+			z+=1;
 		}
-	}}
+	}
+	}
 
 
 	public Gui (String title)
@@ -118,90 +114,26 @@ public class Gui extends JFrame  implements ActionListener
 			data.ReadData();
 			Numerator=0;
 			JOptionPane.showMessageDialog(null, "Checking Symptoms" +Numerator);
-			for(int i=0; i<data.getTitles().size();i++) 
+			z=0;
+			for(int i=0; i<data.getTitles().size()-1;i++) 
 			{
 				for(int j[]= {0}; j[0]<data.getD(i).getNewObj().size();j[0]++) 
 				{
-					System.out.println("trace"+j[0]);
-					if(r[j[0]].isSelected() == true)
+					System.out.println("trace"+z);
+					System.out.println(r[z].isSelected());
+					if(r[z].isSelected())
 					{
-						System.out.println(data.getD(i).getNewObj(j[0]));
-						System.out.println("Yatzi"+j[0]);
+						System.out.println(r[z].isSelected());
+						
+						//System.out.println(data.getD(i).getNewObj(j[0]));
+						//System.out.println("Yatzi"+z);
 						Numerator += data.getResults(i,j[0]);
-						System.out.println((String) data.getTitles().get(i) + data.getResults(i, j[0]));
+						//System.out.println((String) data.getTitles().get(i) + data.getResults(i, j[0]));	
 					}
+					z+=1;
 				}
 			}
-			JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/data.getDenominator()));
+			JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/(data.getDenominator()-1))+"__"+(Numerator)+"/"+(data.getDenominator()-1));
 		}
 	}
 }
-/*
-				for (int[] j= {0}; j[0]<data.getD(i).getNewObj().size();j[0]++)
-				{
-					r[j[0]].addActionListener(new ActionListener() {
-						@Override
-						public void actionPerformed(ActionEvent e) 
-						{
-							//if( e.getSource() == button1) 
-							{
-								JOptionPane.showMessageDialog(null, "Checking Symptoms");
-								if(r[j[0]].isSelected() == true)
-								{
-									System.out.println("Yatzi");
-								}
-							}
-						} 
-					});
-
-		}}
-
-	}
-}
-		/*button1.addActionListener(this);
-		checkBox1.addItemListener(null);
-
-	}/*
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if( arg0.getSource() == button1) {
-			//JOptionPane.showMessageDialog(null, "Checking Symptoms");
-			data.ReadData();
-			Numerator=0;
-			if(checkBox1.isSelected())
-			{
-				Numerator += data.getAchesNumerator() ;
-				System.out.println("Aches"+data.getAchesNumerator());
-			}
-			if(checkBox2.isSelected())
-			{
-				Numerator += data.getSoreThroatNumerator() ;
-				System.out.println("Throat"+data.getSoreThroatNumerator());
-			}
-			if(rButton1.isSelected())
-			{
-				Numerator += data.getTempatureHotNumerator() ;
-				System.out.println("Hot"+data.getTempatureHotNumerator());
-			}
-			if(rButton2.isSelected())
-			{
-				Numerator += data.getTempatureNormalNumerator() ;
-				System.out.println("Normal"+data.getTempatureNormalNumerator());
-			}
-			if(rButton3.isSelected())
-			{
-				Numerator += data.getTempatureCoolNumerator() ;
-				System.out.println("Cool"+data.getTempatureCoolNumerator());
-			}
-			System.out.println("Denominator"+data.getDenominator());
-			if(Numerator/data.getDenominator()==1)
-			{
-				JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/data.getDenominator())+"<html><a href=\"http://google.com/\">a link</a></html>");
-			}
-			JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/data.getDenominator()));
-		}
-
-
-	}
-
-}*/

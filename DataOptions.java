@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.ArrayList;
 
 public class DataOptions {
-	/*Object[] obj = new Object[] {};
-	ArrayList<Object> newObj = new ArrayList<Object>(Arrays.asList(obj));*/
 	ArrayList newObj = new ArrayList();
 	@SuppressWarnings({ "unused", "unlikely-arg-type" })
 	public void countOptions(String input)
@@ -30,6 +28,10 @@ public class DataOptions {
 		return temp.toArray();
 
 	  }
+	public ArrayList getNewObjArray() {
+	
+		return (ArrayList) newObj;
+	}
 	public String getNewObj(int x) {
 		String y = (String) newObj.get(x);
 		return y;
