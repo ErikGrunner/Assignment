@@ -5,6 +5,7 @@ import java.io.BufferedReader ;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ai implements Requirements{
 	private float tempatureHotNumerator=0;
@@ -13,8 +14,15 @@ public class Ai implements Requirements{
 	private float soreThroatNumerator=0;
 	private float achesNumerator=0;
 	private float Denominator=0;
+	private ArrayList Titles = new ArrayList();
 	private int[][] results = new int[5][5];
 	
+	public DataOptions getD(int x) {
+		return d[x];
+	}
+	public void setD(DataOptions[] d) {
+		this.d = d;
+	}
 	int trace =0;
 	boolean alreadyExecuted = false;
 	DataOptions d[] = null;
@@ -61,6 +69,8 @@ public class Ai implements Requirements{
 	}
 	public void ReadData()
 	{
+		System.out.println("Reading data");
+		alreadyExecuted = false;
 		BufferedReader reader;//Found a code example of buffer reader online
 		try {
 			reader = new BufferedReader(new FileReader(
@@ -71,6 +81,7 @@ public class Ai implements Requirements{
 				
 				sortData(line);
 				line = reader.readLine();
+				
 			}
 			reader.close();
 		} catch (IOException e) {
@@ -93,16 +104,17 @@ public class Ai implements Requirements{
 			System.out.println("Failed to read");
 			e.printStackTrace();
 		}
-		System.out.println("Sore Throat answer"+(soreThroatNumerator/Denominator));
+		/*System.out.println("Sore Throat answer"+(soreThroatNumerator/Denominator));
 		System.out.println("aches answer"+(achesNumerator/Denominator));
 		System.out.println("hot answer"+(tempatureHotNumerator/Denominator));
 		System.out.println("cool Throat answer"+(tempatureCoolNumerator/Denominator));
-		System.out.println("normal Throat answer"+(tempatureNormalNumerator/Denominator));
+		System.out.println("normal Throat answer"+(tempatureNormalNumerator/Denominator));*/
 
 
 	}
 	public void sortData(String line)
 	{
+		
 		String[] arrx = line.split(" ");
 	
 		if(!alreadyExecuted) //creates the objects that hold possible answers
@@ -111,19 +123,40 @@ public class Ai implements Requirements{
 			for(int i=0; i<arrx.length;i++) 
 			{
 				d[i] = new DataOptions();
+				if(!Titles.contains(arrx[i]))//add the titles into a arraylist
+					Titles.add(arrx[i]);
 			}
 			alreadyExecuted = true;
+			String[] Titles = line.split(" ");
+			/*System.out.println("Titles:"+Arrays.toString(Titles));
+			System.out.println("Titles Length:"+Titles.length);*/
+			
+			return ;
 		}
+
 		for(int i=0; i<arrx.length;i++) //fills the objects with the possible answers
 		{
 			arrx[i] = arrx[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
 			d[i].countOptions(arrx[i]);
-		     System.out.println("d"+i+d[i].toString());
+		     //System.out.println("d"+i+d[i].toString());//used to see data options
 		}
-		System.out.println(d[2].getNewObj(0));
+		//System.out.println(d[2].getNewObj(0));
 
 		
 
+	}
+	public ArrayList getTitles() {
+		ReadData();
+		return (ArrayList) Titles;
+	}
+	public int getResults(int i,int j) {
+		return results[i][j];
+	}
+	public void setResults(int[][] results) {
+		this.results = results;
+	}
+	public void setTitles(ArrayList titles) {
+		Titles = titles;
 	}
 	public void countData(String line)
 	{
@@ -136,6 +169,14 @@ public class Ai implements Requirements{
 		if(arr[3].toLowerCase().contentEquals("yes"/*d[3].getNewObj(j)*/))//if the patient has Tonsillitis
 		{
 			removeTheElement(arr, 3);//this is so that results are not generated for tonsilitus
+			for(int i =0;i<arr.length;i++)//reset the results
+			{
+				for(int j =0; j<(d[i].getNewObj()).size();j++)
+				{
+					results[i][j] = 0;
+				}
+				
+			}
 			for(int i =0;i<arr.length;i++)
 			{
 				for(int j =0; j<(d[i].getNewObj()).size();j++)
