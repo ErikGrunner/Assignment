@@ -20,8 +20,9 @@ public class Ai implements Requirements{
 	public float getDenominator() {
 		return Denominator;
 	}
-	public void ReadData()
+	public void ReadData(int slider)
 	{
+		int count = 0;
 		System.out.println("Reading data");
 		alreadyExecuted = false;
 		BufferedReader reader;//Found a code example of buffer reader online
@@ -29,12 +30,13 @@ public class Ai implements Requirements{
 			reader = new BufferedReader(new FileReader(
 					"/Users/Erik/Desktop/Tonsilitus.txt"));
 			String line = reader.readLine();
+			
 			while (line != null) {
 				//System.out.println(line);
 				
-				sortData(line);
+				sortData(line,slider);
 				line = reader.readLine();
-				
+				count++;
 			}
 			reader.close();
 		} catch (IOException e) {
@@ -46,8 +48,8 @@ public class Ai implements Requirements{
 			reader = new BufferedReader(new FileReader(
 					"/Users/Erik/Desktop/Tonsilitus.txt"));
 			String line = reader.readLine();
-			
-			while (line != null) {
+			Denominator=0;
+			for (int i =0; i<count;i++) {
 				//System.out.println(line);
 				//line = line.replaceAll("[^A-Za-z]+", "").toLowerCase();
 				countData(line);
@@ -59,7 +61,7 @@ public class Ai implements Requirements{
 			e.printStackTrace();
 		}
 	}
-	public void sortData(String line)
+	public void sortData(String line,int slider)
 	{
 		
 		String[] arrx = line.split(" ");
@@ -87,7 +89,7 @@ public class Ai implements Requirements{
 			
 		}
 		//System.out.println(Arrays.deepToString(results));
-		for(int i=0; i<arrx.length;i++) //fills the objects with the possible answers
+		for(int i=0; i<arrx.length*(slider/100);i++) //fills the objects with the possible answers
 		{
 			arrx[i] = arrx[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
 			d[i].countOptions(arrx[i]);
@@ -95,7 +97,7 @@ public class Ai implements Requirements{
 		}
 	}
 	public ArrayList getTitles() {
-		ReadData();
+		ReadData(100);
 		return (ArrayList) Titles;
 	}
 	public int getResults(int i,int j) {
@@ -114,7 +116,7 @@ public class Ai implements Requirements{
 			for(int i =0;i<arr.length;i++)
 			{
 				arr[i] = arr[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
-				for(int j =0; j<(d[i].getNewObj()).size();j++)
+				for(int j =0; j<((d[i].getNewObj()).size());j++)
 				{
 
 					if(arr[i].contentEquals(d[i].getNewObj(j)))//this counts up the amount of times each results happens for each question
