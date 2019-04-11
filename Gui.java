@@ -2,24 +2,19 @@ package Assignment;
 
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Arrays;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class Gui extends JFrame  implements ActionListener
 {
 
@@ -63,32 +58,6 @@ public class Gui extends JFrame  implements ActionListener
 	{
 		// set the title
 		super(title);
-
-		//System.out.println("titles lenght "+data.getTitles().get(0));
-
-		
-
-
-		/*for (int[] j= {0}; j[0]<data.getD(i).getNewObj().size();j[0]++)
-			{
-				r[j[0]].addActionListener(new ActionListener() 
-				{
-					@Override
-					public void actionPerformed(ActionEvent e) 
-					{
-						//if( e.getSource() == button1) 
-						{
-							JOptionPane.showMessageDialog(null, "Checking Symptoms");
-							if(r[j[0]].isSelected() == true)
-							{
-								System.out.println("Yatzi");
-							}
-						}
-					} 
-				});
-
-			}*/
-
 		setLayout(new FlowLayout());
 		button1 = new JButton("Check");
 		JPanel myPanel = new JPanel();
@@ -113,7 +82,7 @@ public class Gui extends JFrame  implements ActionListener
 		{
 			data.ReadData();
 			Numerator=0;
-			JOptionPane.showMessageDialog(null, "Checking Symptoms" +Numerator);
+			//JOptionPane.showMessageDialog(null, "Checking Symptoms" +Numerator);
 			z=0;
 			for(int i=0; i<data.getTitles().size()-1;i++) 
 			{
@@ -133,7 +102,7 @@ public class Gui extends JFrame  implements ActionListener
 					z+=1;
 				}
 			}
-			JOptionPane.showMessageDialog(null, "Probability:"+(Numerator/(data.getDenominator()-1))+"__"+(Numerator)+"/"+(data.getDenominator()-1));
+			JOptionPane.showMessageDialog(null, "Probability: %"+(int)100*(Numerator/(data.getDenominator()-1))/*+"__"+(Numerator)+"/"+(data.getDenominator()-1)*/);
 		}
 	}
 }
