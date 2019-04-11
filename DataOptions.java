@@ -10,13 +10,14 @@ public class DataOptions {
 	public void countOptions(String input)
 	{
 
-		if(newObj.contains(input))
+		if(newObj.contains(input))//Arrays.asList(newObj).contains(input))
 		{
 			//System.out.println("beep");
 		}
 		else
 		{
 			newObj.add(input);
+			//Object[] newObj = appendValue(obj, input);
 			Collections.sort(newObj, Collections.reverseOrder());
 		}
 	}
@@ -43,7 +44,7 @@ public class DataOptions {
 	}
 	@Override
 	public String toString() {
-		return "DataOptions ["
-				+ " newObj=" + newObj + "]";
+		return "DataOptions [" + "obj=" /*+ Arrays.toString(obj)*/
+				+ ", newObj=" + newObj + "]";
 	}
 }

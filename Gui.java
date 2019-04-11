@@ -13,19 +13,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame  implements ActionListener
 {
 
-	public int value;
+
 	private float Numerator = 0;
 	private JButton button1;
 	private int z =0;//used for the radio buttons
-	JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 100, 25); 
 
 	Ai data = new Ai();
 
@@ -62,21 +58,6 @@ public class Gui extends JFrame  implements ActionListener
 	{
 		// set the title
 		super(title);
-	 
-		slider.setMinorTickSpacing(2);  
-		slider.setMajorTickSpacing(10);  
-		slider.setPaintTicks(true);  
-		slider.setPaintLabels(true);
-		slider.addChangeListener(new ChangeListener() {
-		      public void stateChanged(ChangeEvent event) {
-		       value = slider.getValue();
-		      }
-		    });
-		  
-		JPanel panel=new JPanel();  
-		panel.add(slider);  
-		add(panel); 
-		
 		setLayout(new FlowLayout());
 		button1 = new JButton("Check");
 		JPanel myPanel = new JPanel();
@@ -86,8 +67,6 @@ public class Gui extends JFrame  implements ActionListener
 		setSize(600,400);
 		setLocation(200,200);
 		setVisible(true);
-		
-		
 	}
 
 
@@ -101,7 +80,7 @@ public class Gui extends JFrame  implements ActionListener
 		// TODO Auto-generated method stub
 		if( e.getSource() == button1) 
 		{
-			data.ReadData(100);
+			data.ReadData();
 			Numerator=0;
 			//JOptionPane.showMessageDialog(null, "Checking Symptoms" +Numerator);
 			z=0;
@@ -117,14 +96,13 @@ public class Gui extends JFrame  implements ActionListener
 						
 						//System.out.println(data.getD(i).getNewObj(j[0]));
 						//System.out.println("Yatzi"+z);
-						data.ReadData(value);
 						Numerator += data.getResults(i,j[0]);
 						//System.out.println((String) data.getTitles().get(i) + data.getResults(i, j[0]));	
 					}
 					z+=1;
 				}
 			}
-			JOptionPane.showMessageDialog(null, "Probability: %"+100*(Numerator/(data.getDenominator()-1))+"__"+(Numerator)+"/"+(data.getDenominator()-1));
+			JOptionPane.showMessageDialog(null, "Probability: %"+(int)100*(Numerator/(data.getDenominator()-1))/*+"__"+(Numerator)+"/"+(data.getDenominator()-1)*/);
 		}
 	}
 }
