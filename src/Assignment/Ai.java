@@ -22,7 +22,7 @@ public class Ai implements Requirements{
 	}
 	public void ReadData()
 	{
-		System.out.println("Reading data");
+		//System.out.println("Reading data");
 		alreadyExecuted = false;
 		BufferedReader reader;//Found a code example of buffer reader online
 		try {

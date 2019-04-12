@@ -47,7 +47,7 @@ public class Gui extends JFrame  implements ActionListener
 			this.add(r[z]); 
 			r[z].addActionListener(this);
 			//this.add(new JRadioButton((String) data.getD(i).getNewObj(j)));
-			System.out.println("ZZZZZ"+z);
+			//System.out.println("ZZZZZ"+z);
 			z+=1;
 		}
 	}
