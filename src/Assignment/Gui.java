@@ -19,9 +19,9 @@ public class Gui extends JFrame  implements ActionListener
 {
 
 
-	private float Numerator = 0;
+	private float Numerator = 0;//used in calculation
 	private JButton button1;
-	private int z =0;//used for the radio buttons
+	private int z =0;//used to label the radio buttons
 
 	Ai data = new Ai();
 
@@ -30,7 +30,7 @@ public class Gui extends JFrame  implements ActionListener
 	JRadioButton[] r = new JRadioButton[data.totalAnswers()];
 	{
 		z =0;
-	for(int i=0; i<data.getTitles().size()-1;i++) 
+	for(int i=0; i<data.getTitles().size()-1;i++) //this groups all the radio buttons to each question
 	{
 		l[i] = new JLabel((String) data.getTitles().get(i));
 		this.add(l[i]);
@@ -56,7 +56,7 @@ public class Gui extends JFrame  implements ActionListener
 
 	public Gui (String title)
 	{
-		// set the title
+		// sets up other parts of the gui
 		super(title);
 		setLayout(new FlowLayout());
 		button1 = new JButton("Check");
@@ -93,11 +93,7 @@ public class Gui extends JFrame  implements ActionListener
 					if(r[z].isSelected())
 					{
 						System.out.println(r[z].isSelected());
-						
-						//System.out.println(data.getD(i).getNewObj(j[0]));
-						//System.out.println("Yatzi"+z);
 						Numerator += data.getResults(i,j[0]);
-						//System.out.println((String) data.getTitles().get(i) + data.getResults(i, j[0]));	
 					}
 					z+=1;
 				}

@@ -27,7 +27,7 @@ public class Ai implements Requirements{
 		BufferedReader reader;//Found a code example of buffer reader online
 		try {
 			reader = new BufferedReader(new FileReader(
-					"/Users/Erik/Desktop/Tonsilitus.txt"));
+					"Tonsilitus.txt"));
 			String line = reader.readLine();
 			while (line != null) {
 				//System.out.println(line);
@@ -44,7 +44,7 @@ public class Ai implements Requirements{
 		
 		try {
 			reader = new BufferedReader(new FileReader(
-					"/Users/Erik/Desktop/Tonsilitus.txt"));
+					"Tonsilitus.txt"));
 			String line = reader.readLine();
 			
 			while (line != null) {
@@ -74,7 +74,6 @@ public class Ai implements Requirements{
 					Titles.add(arrx[i]);
 			}
 			alreadyExecuted = true;
-			//String[] Titles = line.split(" ");
 			return ;
 		}
 		Denominator=0;
@@ -86,12 +85,11 @@ public class Ai implements Requirements{
 			}
 			
 		}
-		//System.out.println(Arrays.deepToString(results));
 		for(int i=0; i<arrx.length;i++) //fills the objects with the possible answers
 		{
 			arrx[i] = arrx[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
 			d[i].countOptions(arrx[i]);
-		     //System.out.println("d"+i+d[i].toString());//used to see data options
+		     //System.out.println("d"+i+d[i].toString());//used to see data options in testing
 		}
 	}
 	public ArrayList getTitles() {
@@ -113,7 +111,7 @@ public class Ai implements Requirements{
 			
 			for(int i =0;i<arr.length;i++)
 			{
-				arr[i] = arr[i].replaceAll("[^A-Za-z]+", "").toLowerCase();
+				arr[i] = arr[i].replaceAll("[^A-Za-z]+", "").toLowerCase();//formats data 
 				for(int j =0; j<(d[i].getNewObj()).size();j++)
 				{
 
